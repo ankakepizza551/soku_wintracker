@@ -78,10 +78,10 @@ static void createFont()
 	desc.r2 = 255;
 	desc.g2 = 255;
 	desc.b2 = 255;
-	desc.height = 20;
+	desc.height = 16;
 	desc.weight = FW_BOLD;
 	desc.italic = 0;
-	desc.shadow = 3;
+	desc.shadow = 1;
 	desc.bufferSize = 100000;
 	desc.charSpaceX = 0;
 	desc.charSpaceY = 0;
@@ -110,12 +110,12 @@ static void layoutBadge(Badge &badge, const char *text, bool left)
 	badge.text.rect.width = realSize.x;
 	badge.text.rect.height = realSize.y;
 
-	const int padX = 12;
-	const int padY = 6;
+	const int padX = 6;
+	const int padY = 2;
 	const int panelW = realSize.x + padX * 2;
 	const int panelH = realSize.y + padY * 2;
-	const int marginX = 10;
-	const int panelY = 24; // just under the health bars, level with the gear/timer
+	const int marginX = 90; // clear of the game's own "1P/2P round score" box, landing beside the player name
+	const int panelY = 5; // level with the player name row, small enough to stay clear of the health bar below
 
 	int panelX = left ? marginX : (640 - marginX - panelW);
 
@@ -137,8 +137,8 @@ static void updateBadges()
 	char leftText[32];
 	char rightText[32];
 
-	wsprintfA(leftText, "1P  %d", s_p1Wins);
-	wsprintfA(rightText, "2P  %d", s_p2Wins);
+	wsprintfA(leftText, "%d", s_p1Wins);
+	wsprintfA(rightText, "%d", s_p2Wins);
 	layoutBadge(s_leftBadge, leftText, true);
 	layoutBadge(s_rightBadge, rightText, false);
 	s_textDirty = false;
